@@ -1,0 +1,40 @@
+---
+# tasks file for ansible-hacluster
+- name: Redhat or CentOS| Install required packages
+  yum: name={{item}} state=latest
+  with_items: 
+  - "{{pkg_rh}}"
+
+- name: Set password for for user hacluster
+  command: echo {{hacluster_password}} | passwd hacluster --stdin
+
+- name: start pcsd service
+  service: name=pcsd state=started enabled=yes
+  
+- name: Allow high-availability
+  firewalld: service=high-availability permanent=true immediate=yes state=enabled
+
+- name: Copy script to nodes
+  template: src=hacluster.sh.j2 dest=/usr/local/bin/hacluster.sh mode=0755
+
+- name: Copy script to nodes
+  template: src=pcsconfig.j2 dest=/usr/local/bin/pcsconfig mode=0755
+
+- name: Copy cluster creation script to nodes
+  template: src=startcluster.j2 dest=/usr/local/bin/startcluster mode=0755
+
+- name: Set hacluster passwd
+  command: /usr/local/bin/hacluster.sh
+
+- name: Configure pcs 
+  command: /usr/local/bin/pcsconfig
+# Fails pcsconfig if it has run once
+  ignore_errors: yes
+
+- name: Start your cluster
+  command: /usr/local/bin/startcluster
+  when: ansible_hostname == pcs_cluster1 
+
+- name: Configure fencing device
+  include: virtfence.yml
+  when: virt_fencing == true

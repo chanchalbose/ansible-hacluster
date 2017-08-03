@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Chanchal Bose 
+  description: Deploy HA Cluster using pcs, pacemaker and corosync on Redhat 7
+  company: Prodevans LLC
+
+  license: MIT 
+
+  min_ansible_version: 2.0 
+
+  platforms:
+   - name: EL 
+     versions: 7.x
+
+  galaxy_tags: 
+    - HA cluster
+    - Pacemaker
+    - Corosync
+   
+

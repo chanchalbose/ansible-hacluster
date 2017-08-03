@@ -1,0 +1,8 @@
+---
+# vars file for ansible-hacluster
+pkg_rh: 
+- pcs
+- pacemaker
+- fence-agents-all
+- expect
+

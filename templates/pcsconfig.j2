@@ -1,0 +1,6 @@
+#!/usr/bin/expect -f
+cd /usr/local/bin
+spawn /sbin/pcs cluster auth node1 node2
+expect "Username: " {send -- "hacluster\r"}
+expect "Password: " {send -- "{{hacluster_password}}\r"}
+expect eof

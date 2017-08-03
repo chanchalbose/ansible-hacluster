@@ -1,0 +1,11 @@
+---
+# defaults file for ansible-hacluster
+hacluster_password: Change_Me
+pcs_cluster1: set_an_ip1
+pcs_cluster2: set_an_ip2
+cluster_name: set_name
+virt_fencing: false
+ip_of_esxi: set_esxi_or_vcenter_ip
+esxi_username: set_esxi_or_vcenter_username
+esxi_password: set_esxi_or_vcenter_password
+

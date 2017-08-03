@@ -1,0 +1,3 @@
+---
+- name: HA cluster packages for Debian or Ubuntu
+  debug: msg="Work in progress"

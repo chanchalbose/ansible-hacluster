@@ -1,0 +1,4 @@
+#!/bin/bash
+pcs cluster setup --start --name {{cluster_name}} {{pcs_cluster1}} {{pcs_cluster2}} 
+pcs cluster enable --all
+pcs cluster status

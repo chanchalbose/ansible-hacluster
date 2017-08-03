@@ -1,0 +1,33 @@
+---
+# tasks for creating fencing device 
+- name: Install fencing packages
+  yum: name={{item}} state=latest
+  with_items: 
+  - fence-virtd
+  - fence-virtd-libvirt
+  - fence-virtd-multicast
+
+- name: Create /etc/cluster
+  file: path=/etc/cluster state=directory  
+
+- name: Sample code for running two node cluster on ESXi
+  debug: msg="Work in progress. Change them in terms of your requirement"
+
+#- name: Create a shared secret key
+# Created using command dd if=/dev/urandum of=/path_to_file/fence_xvm.key bs=1k count=4
+#  copy: src=fence_xvm.key dest=/etc/cluster/fence_xvm.key   
+
+#- name: check cluster node is able to reach the hypervisor and list VMs 
+#  command: fence_vmware_soap -a {{ip_of_esxi}} -l {{esxi_username}} -p {{esxi_password}} --ssl -z -v -o list |egrep "({{pcs_cluster1}}|{{pcs_cluster2}})"
+#  register: result
+
+- name: Create the stonith device using pcmk_host_map attribute
+  debug: msg="Work in progess"
+# command: pcs stonith create vmfence fence_vmware_soap pcmk_host_map="node1:node1-vm;node2:node2-vm" ipaddr=<ESXi/vCenter IP address> ssl=1 login=<esxi_username> passwd=<esxi_password>
+#  when: result.stdin == "Test condition" 
+
+# name: To check the status of stonith device and configuration   
+# command: pcs stonith show
+# command: pcs stonith show vmfence --full
+
+
